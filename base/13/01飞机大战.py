@@ -60,7 +60,6 @@ def bing_key(x, y):
 
             elif event.key == K_SPACE:
                 print('space')
-    return x, y
 
 
 if __name__ == '__main__':
