@@ -1,3 +1,4 @@
+# 复习
 # 1. 标识符, 关键字
   # if/else/elif/break/continue/for/while/and/or/not/in/
   # True/False/try/except/finally/as/import/from/def/
