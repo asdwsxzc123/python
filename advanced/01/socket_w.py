@@ -4,7 +4,8 @@ from socket import *
 
 def main():
   udp_socket = socket(AF_INET, SOCK_DGRAM)
-  dest_addr = ('127.0.0.1',8080)
+  dest_addr = ('172.16.20.6',6666)
+  # dest_addr = ('127.0.0.1',8080)
   while True:
     send_data = input('请输入要发送的数据:')
     if send_data == 'exit':
