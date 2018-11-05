@@ -43,23 +43,51 @@
 #   大于1024-65536
 
 """ socket """
-1. 不同电脑上的进程如何通讯
-首先要解决唯一表示一个进程
-在一台电脑上通过进程号(PID)来唯一
-利用ip,端口,进程
+# 1. 不同电脑上的进程如何通讯
+# 首先要解决唯一表示一个进程
+# 在一台电脑上通过进程号(PID)来唯一
+# 利用ip,端口,进程
 
-2.socket
-进程间的通信
+# 2.socket
+# 进程间的通信
 
-3.socket通信
-# Python 可以完成
-import socket
-# socket.socket(AddressFamily,Type)
-AddressFamily: 可以选择AF_INET IPV4
+# 3.socket通信
+# # Python 可以完成
+# import socket
+# # socket.socket(AddressFamily,Type)
+# AddressFamily: 可以选择AF_INET IPV4
 
-1)创建TCP SOCKET(tcp套接字对象)
-s = socket.socket(socket.AF_INET,socket.SOCKET_STREAM)
+# 1)创建TCP SOCKET(tcp套接字对象)
+# s = socket.socket(socket.AF_INET,socket.SOCKET_STREAM)
 
-2) 创建UDP socket
-s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+# 2) 创建UDP socket
+# s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+
+""" UDP """
+# 写信模式,
+
+
+""" TCP """
+# tcp通讯需要创建连接,数据传送,终止连接
+# 更加稳定
+# 1.采用应答机制
+# 如果没有收到数据,会超时重传
+
+# 2.超时重传
+# 会启动定时器,如果没有收到应答会重传
+
+# 3.错误校验
+
+# tcp校验数据是否有错,发送和接收都计算
+
+# 4.流量控制,阻塞管理
+# 避免主机发送过快,使得接收方来不及完全收下
+
+# 不同点:
+# 1.面向连接
+# 2.有序数据传输
+# 3.重发丢失的数据包
+# 4.无差错的数据传输
+# 5.阻塞/流量控制
+
 
