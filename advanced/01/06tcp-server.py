@@ -26,6 +26,8 @@ def main():
         print(clientAddr)
         # 先收数据
         recv_data = client_socket.recv(1024)
+        # print('客户端%s需要下载的文件是:%s'%(str(addre),file_name))
+
         print('客户数据:%s' % recv_data.decode('utf-8'))
         # 再发数据
         client_socket.send('haha'.encode('utf-8'))
