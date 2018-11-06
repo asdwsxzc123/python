@@ -6,8 +6,8 @@ def main():
     # 创建套接字
     tcp_client_socket = socket(AF_INET, SOCK_STREAM)
 
-    server_ip = '192.168.10.1'
-    server_port = 8080
+    server_ip = '192.168.220.135'
+    server_port = 7788
     # server_ip = input('请输入ip:')
     # server_port = int(input('请输入端口:'))
     # 创建连接
@@ -16,9 +16,7 @@ def main():
 
     # 发送信息
     tcp_client_socket.send(send_data.encode('utf-8'))
-
-    # 接收信息
-
+        
     # 关闭服务器
     tcp_client_socket.close()
 

@@ -3,7 +3,7 @@ from socket import *
 
 def main():
   tcp_socket = socket(AF_INET,SOCK_STREAM)
-  ip = '192.168.10.1'
+  ip = '192.168.220.1'
   port = 8080
   addre = (ip,port)
   tcp_socket.connect(addre)
