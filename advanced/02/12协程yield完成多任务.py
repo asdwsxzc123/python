@@ -50,3 +50,42 @@ from greenlet import greenlet
 #   main()
 
 """ gevent """
+# 协程是将延时的时间利用起来去操作
+# 
+import gevent
+from gevent import monkey
+# 这个函数可以将所有的time.sleep()替换成gevent.time()
+monkey.patch_all()
+def f(n):
+  for i in range(n):
+    print(gevent.getcurrent(),i)
+    # time.sleep(2)
+    gevent.sleep(0.5)
+def f2(n):
+  for i in range(n):
+    print(gevent.getcurrent(),i)
+    # time.sleep(2)
+    gevent.sleep(0.5)
+def f3(n):
+  for i in range(n):
+    print(gevent.getcurrent(),i)
+    # time.sleep(2)
+    gevent.sleep(0.5)
+
+# 方法一
+# print('-----1--')
+# g1 = gevent.spawn(f,5)
+# print('-----2--')
+# g2 = gevent.spawn(f2,5)
+# print('-----3--')
+# g3 = gevent.spawn(f3,5)
+# g1.join()
+# g2.join()
+# g3.join()
+
+# 方法二
+gevent.joinall([
+  gevent.spawn(f,5),
+  gevent.spawn(f2,5),
+  gevent.spawn(f3,5),
+])
