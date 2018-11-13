@@ -20,3 +20,21 @@
 # reload(aa)
 
 # 如果是模块引入,都是开辟的新的内存空间 
+
+# __dict__ 获取所有属性
+class Test(object):
+  def __init__(self,name):
+    self.__name = name
+a = Test('laowang')
+# a.__dict__
+
+""" 魔法方法 """
+# 1. __dict__ 检测类或对象中的所有方法
+# 2. __init__ 初始化方法
+# 3. __del__ 删除方法 
+# 4. __call__ 对象直接调用,会调call
+# 5. __str__ 获取对象的描述
+# 6. __doc__ 获取对象的描述
+# 7. __module__ __class__,
+# 8. __getslice__, __setslice__, __delslice__ 用于分片操作, 切片的获取,切片设置,切片删除
+# 9. __getitem__, __setitem__, __delitem__ 用于索引操作 ,对象属性获取,对象属性的设置,对象属性删除
