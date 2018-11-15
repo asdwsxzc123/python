@@ -38,3 +38,21 @@ insert into goods values(0,'hmz-t3w 头戴显示设备','笔记本配件','索�
 insert into goods values(0,'商务双肩背包','笔记本配件','索尼','99',default,default); 
 insert into goods values(0,'x3250 m4机架式服务器','服务器/工作站','ibm','6888',default,default); 
 insert into goods values(0,'商务双肩背包','笔记本配件','索尼','99',default,default);
+
+-- 显示商品品类
+select distinct cate_name from goods ;
+select cate_name from goods group by cate_name;
+
+-- 所有电脑产品的平均价格,保留两位小数
+select round(avg(price),2) as '平均价格' from goods ;
+
+
+-- 显示每种商品的平均价格
+select cate_name,avg(price)  from goods group by cate_name;
+
+
+-- 显示每种类型中最贵,最便宜,平均价,数量
+
+-- 查询所有价格大于平均价格的商品,安价格降序排序
+
+-- 查询每种类型中最贵的电脑信息
