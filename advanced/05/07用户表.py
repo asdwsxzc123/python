@@ -1,15 +1,18 @@
-# 用户注册
-# 登录
-# 用户下单
-# 订单表
 from pymysql import *
 
 
 class JD (object):
     def __init__(self):
-        self.conn = connect(host='172.16.20.46', port=3306, user='root',
-                            password='123456', database='jing_dong', charset='utf8')
-        self.cursor = self.conn.cursor()
+        try:
+            self.conn = connect(host='192.168.220.135', port=3306, user='root',
+                                password='geesunn123', database='jing_dong', charset='utf8')
+            # self.conn = connect(host='172.16.20.46', port=3306, user='root',
+            #                     password='123456', database='jing_dong', charset='utf8')
+            self.cursor = self.conn.cursor()
+        except Exception as ret:
+            print(ret)
+        else:
+            pass
         self.user_id = 0
         self.run()
 
@@ -68,15 +71,50 @@ class JD (object):
     def user_login(self):
         name = input('请输入用户名: ')
         passwd = input('请输入密码: ')
-        sql = 'select * from customers where name = %s and passwd = %s'
-        self.cursor.execute(sql, [name, address, tel, passwd])
-        if (len(self.cursor.fetchall()) > 0) {
-            (user_id) = self.cursor.fetchall()
-            print(user_id)
-            self.user_id = user_id
-            print('登录成功')
-        }
+        sql = 'select id from customers where name = %s and passwd = %s'
+        row = self.cursor.execute(sql, [name, passwd])
+        if (row > 0):
+            for item in self.cursor.fetchall():
+                print('登录成功')
+                print(item[0])
+                self.user_id = item[0]
+        else:
+            print('账户密码错误')
 
+    def user_logout(self):
+        self.user_id = 0
+        print('退出成功')
+
+    def get_login_info(self):
+        sql = 'select * from customers where id = %s'
+        row = self.cursor.execute(sql, [self.user_id])
+        if row:
+            print(self.cursor.fetchall())
+        else:
+            print('------请登录------')
+
+    def createOrder(self):
+        sql = 'insert into orders (customer_id) values(%s);'
+        if self.user_id:
+            row = self.cursor.execute(sql, [self.user_id])
+            self.conn.commit()
+            print(row)
+            if row >0:
+                print('创建成功---')
+                print(self.cursor.lastrowid)
+            else:
+                print('创建失败')
+        else:
+            print('------请登录------')
+        
+    def add_goods2order(self):
+        self.get_all_goods_brands()
+        goods_id = input('请输入要购买的商品id:')
+        # 1.添加商品goods_id,放在一个list里面
+
+        # 2. 下单,创建一个订单order,customer_ID,得到商品id
+        # 3. 将商品goods_id列表insert到order_detail
+        
     @staticmethod
     def print_menu():
         print('='*50)
@@ -89,7 +127,9 @@ class JD (object):
         print('7. 用户登录')
         print('8. 用户登出')
         print('9. 查询所有用户')
-        print('10. 用户下单')
+        print('10. 用户创建订单')
+        print('11. 获取登录信息')
+        print('12. 用户添加商品')
 
     def run(self):
         while True:
@@ -116,12 +156,21 @@ class JD (object):
             elif num == 7:
                 # 用户登录
                 self.user_login()
-            # elif num == 8:
+            elif num == 8:
                 # 用户登出
-            #     self.user2order()
+                self.user_logout()
             elif num == 9:
                 # 查询所有用户
                 self.get_all_users()
+            elif num == 10:
+                # 创建订单
+                self.createOrder()
+            elif num == 11:
+                # 获取登录信息
+                self.get_login_info()
+            elif num == 12:
+                # 用户添加商品
+                self.add_goods2order()
             else:
                 pass
 
