@@ -160,6 +160,7 @@ select gender,count(*) from students group by gender;
 select gender,group_concat(name, "_", age) from students where gender=1 group by gender;
 
 -- having 可以过滤
+-- 平均年龄大于30岁
 select gender,group_concat(name,age) from students group by gender having avg(age)>30;
 
 select gender ,group_concat(name) from students group by gender HAVING count(*) > 2;
