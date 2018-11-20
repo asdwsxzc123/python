@@ -122,17 +122,13 @@ class JD (object):
                 good_id = input('请输入要购买的商品id:')
                 
                 # 判断有没有
-                # 有更新,没有插入,更新有问题======================
+                # 有更新,没有插入
                 find_sql = 'select quantity from order_detail where order_id= %s and good_id= %s'
                 find_row = self.cursor.execute(find_sql, [self.order_id, good_id])
                 if find_row > 0:
-                    quantity = self.cursor.fetchall()[0]
-                    quantity = int(quantity)
-                    print('quantity:%s'%quantity)
-                    quantity += 1
-                    sql = 'UPDATE order_detail SET quantity=%s WHERE order_id=%s AND good_id=%s'
-                    row = self.cursor.execute(sql, [quantity, self.order_id, good_id])
-                    print(row, quantity, self.order_id, good_id)
+                    sql = 'UPDATE order_detail SET quantity=quantity + 1 WHERE order_id=%s AND good_id=%s'
+                    row = self.cursor.execute(sql, [ self.order_id, good_id])
+                    print(row, self.order_id, good_id)
                 else:
                     sql = 'insert into order_detail (order_id,good_id,quantity) values(%s,%s,1)'
                     row = self.cursor.execute(sql, [self.order_id, good_id])
