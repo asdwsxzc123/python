@@ -1,19 +1,20 @@
+# -*- coding: utf-8 -*-
 from pymysql import *
-
-
 class JD (object):
     def __init__(self):
         try:
-            self.conn = connect(host='192.168.220.135', port=3306, user='root',
-                                password='geesunn123', database='jing_dong', charset='utf8')
-            # self.conn = connect(host='172.16.20.46', port=3306, user='root',
-            #                     password='123456', database='jing_dong', charset='utf8')
+            # self.conn = connect(host='192.168.220.135', port=3306, user='root',
+            #                     password='geesunn123', database='jing_dong', charset='utf8')
+            self.conn = connect(host='172.16.20.46', port=3306, user='root',
+                                password='123456', database='jing_dong', charset='utf8')
             self.cursor = self.conn.cursor()
         except Exception as ret:
             print(ret)
         else:
             pass
         self.user_id = 0
+        self.order_id = 0
+
         self.run()
 
     def __del__(self):
@@ -24,13 +25,16 @@ class JD (object):
         self.cursor.execute(sql)
         for row in self.cursor.fetchall():
             print(row)
+    def commit_ok(self,content):
+        print(content)
+        self.conn.commit()
 
     def get_all_goods(self):
         sql = 'select * from goods;'
         self.execute_sql(sql)
 
     def get_info_by_name(self):
-        find_name = input('请输入商品名: ')
+        find_name = input('请输入商品名:')
         args = '%' + find_name + '%'
         sql = 'select * from goods where name like %s;'
         self.cursor.execute(sql, [args])
@@ -69,8 +73,10 @@ class JD (object):
         self.conn.commit()
 
     def user_login(self):
-        name = input('请输入用户名: ')
-        passwd = input('请输入密码: ')
+        name = 'lisi'
+        passwd = '123456'
+        # name = input('请输入用户名: ')
+        # passwd = input('请输入密码: ')
         sql = 'select id from customers where name = %s and passwd = %s'
         row = self.cursor.execute(sql, [name, passwd])
         if (row > 0):
@@ -97,23 +103,61 @@ class JD (object):
         sql = 'insert into orders (customer_id) values(%s);'
         if self.user_id:
             row = self.cursor.execute(sql, [self.user_id])
-            self.conn.commit()
-            print(row)
-            if row >0:
-                print('创建成功---')
-                print(self.cursor.lastrowid)
+            if row > 0:
+                print('创建成功---%d' % self.cursor.lastrowid)
+                # self.order_id = self.conn.insert_id()
+                self.order_id = self.cursor.lastrowid
+                self.conn.commit()
             else:
                 print('创建失败')
         else:
             print('------请登录------')
-        
-    def add_goods2order(self):
-        self.get_all_goods_brands()
-        goods_id = input('请输入要购买的商品id:')
-        # 1.添加商品goods_id,放在一个list里面
 
-        # 2. 下单,创建一个订单order,customer_ID,得到商品id
-        # 3. 将商品goods_id列表insert到order_detail
+    def add_goods2order(self):
+        self.get_all_goods()
+        good_id = input('请输入要购买的商品id:')
+        # 1.添加商品good_id,放在一个list里面
+        # 判断有没有
+            # 有更新,没有插入
+        find_sql = 'select quantity from order_detail where order_id= %s and good_id = %s'
+        find_row = self.cursor.execute(find_sql, [self.order_id,good_id])
+
+        if find_row > 0:
+            quantity = self.cursor.fetchall()[0]
+            print('quantity:'+quantity)
+            quantity += 1
+            sql = 'update order_detail set quantity=%s'
+            row = self.cursor.execute(sql,[quantity])
+        else: 
+            sql = 'insert into order_detail (order_id,good_id,quantity) values(%s,%s,1)'
+            row = self.cursor.execute(sql,[self.order_id,good_id])
+
+        if row > 0:
+            self.commit_ok('添加成功')
+        else: 
+            print('添加失败')
+    def select_order(self):
+    def find_order(self):
+        if self.user_id> 0:
+            order_sql = 'select * from orders where customer_id=%s;'
+            order_num = self.cursor.execute(order_sql, [self.user_id])
+            if order_num> 0:
+                print('订单id,用户id,创建时间')
+                for order in self.cursor.fetchall():
+                    print(order)
+            else:
+                print('该用户,暂无订单')
+            order_id = input('请输入想要查询的订单id:')
+            order_detail_sql = 'select * from order_detail where order_id=%s;'
+            row = self.cursor.execute(order_detail_sql, [order_id])
+            if row > 0:
+                print('详情id,订单id,商品id,数量')
+                for order_detail_row in self.cursor.fetchall():
+                    print(order_detail_row)
+            else:
+                print('该单号再无商品!')
+        else:
+            print('------请登录------')
         
     @staticmethod
     def print_menu():
@@ -130,6 +174,7 @@ class JD (object):
         print('10. 用户创建订单')
         print('11. 获取登录信息')
         print('12. 用户添加商品')
+        print('13. 查看订单')
 
     def run(self):
         while True:
@@ -171,6 +216,9 @@ class JD (object):
             elif num == 12:
                 # 用户添加商品
                 self.add_goods2order()
+            elif num == 13:
+                # 查看订单
+                self.find_order()
             else:
                 pass
 
