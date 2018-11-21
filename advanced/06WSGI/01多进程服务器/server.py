@@ -32,7 +32,7 @@ class WSGIServer(object):
         # 如果请求的不是一.py结尾的,认为是静态资源
         if not file_name.endswith('.py'):
             try:
-                f = open('./html' + file_name, 'rb')
+                f = open('../../html' + file_name, 'rb')
             except Exception as ret:
                 respone = 'HTTP/1.1 404 NOT FOUNT\r\n'
                 respone += '\r\n'
@@ -48,20 +48,23 @@ class WSGIServer(object):
                 # 将body 发送给服务器
                 new_socket.send(content_html)
         else: 
+            env = dict()
+            body = mini_frame.application(env, self.set_response_header)
             # .py格式
-            header = 'HTTP/1.1 200 OK\r\n'
-            header += '\r\n' 
-            # if (file_name == '/login.py'):
-            #     body = mini_frame.login()
-            # else: 
-            #     body = mini_frame.register()
-            body = mini_frame.application(file_name)
+            header = 'HTTP/1.1 %s\r\n'%self.status
+            for temp in self.headers:
+                header += '%s:%s\r\n' %(temp[0],temp[1])
+
+            header += '\r\n'
             respone = header + body
             
             new_socket.send(respone.encode('utf-8'))
         # 关闭套链
         new_socket.close()
-        
+    def set_response_header(self,status,headers):
+        self.status = status
+        self.headers = [('server', 'BWS/1.0')]
+        self.headers += headers
     def runforever(self):
         while True:
             # 等待新客户端的链接
