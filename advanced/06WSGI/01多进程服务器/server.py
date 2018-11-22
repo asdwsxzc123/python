@@ -1,15 +1,15 @@
 import multiprocessing
 import socket
 import re
-import mini_frame
-
+import sys
 class WSGIServer(object):
-    def __init__(self):
+    def __init__(self, port,app, static):
+        self.application = app
+        self.static_path = static
         # 1. 创建套接字
         self.tcp_server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # 握手问题
         self.tcp_server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        port = 7788
         print('listen: %s' %port)
         # 2. 绑定,端口
         self.tcp_server_socket.bind(('', port))
@@ -32,7 +32,7 @@ class WSGIServer(object):
         # 如果请求的不是一.py结尾的,认为是静态资源
         if not file_name.endswith('.py'):
             try:
-                f = open('../../html' + file_name, 'rb')
+                f = open(self.static_path + file_name, 'rb')
             except Exception as ret:
                 respone = 'HTTP/1.1 404 NOT FOUNT\r\n'
                 respone += '\r\n'
@@ -49,7 +49,9 @@ class WSGIServer(object):
                 new_socket.send(content_html)
         else: 
             env = dict()
-            body = mini_frame.application(env, self.set_response_header)
+            env['PATH_INFO'] = file_name
+            body = self.application(env, self.set_response_header)
+            # body = mini_frame.application(env, self.set_response_header)
             # .py格式
             header = 'HTTP/1.1 %s\r\n'%self.status
             for temp in self.headers:
@@ -80,7 +82,39 @@ class WSGIServer(object):
 
 def main():
     # 控制整体,创建一个web服务器对象,然后调用这个run_forever方法
-    wsgi_server = WSGIServer()
+    # 给程序添加参数
+    if len(sys.argv) == 3:
+        try:
+            port = int(sys.argv[1])
+            frame_app_name = sys.argv[2]
+        except Exception as ret:
+            print('端口输入错误')
+            return
+    else:
+        print('请按照以下方式运行')
+        print('python3 xxx.py 7890 mini_frame:application')
+        return
+    ret = re.match(r'([^:]+):(.*)', frame_app_name)
+    if ret:
+        frame_name = ret.group(1)
+        app_name = ret.group(2)
+    else:
+        print('请按照以下方式运行')
+        print('python3 xxx.py 7890 mini_frame:application')
+        return
+
+
+    with open('./web_server.conf') as f:
+        # 这个字典类型
+        conf_info = eval(f.read())
+        print(conf_info)
+        
+        
+    sys.path.append(conf_info['dynamic_path'])
+    frame = __import__(frame_name) # 返回值标记这个 导入的模块
+    print(frame)
+    app = getattr(frame, app_name)
+    wsgi_server = WSGIServer(port,app,conf_info['static'])
     wsgi_server.runforever()
 
 if __name__ == "__main__":
