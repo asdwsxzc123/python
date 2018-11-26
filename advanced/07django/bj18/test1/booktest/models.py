@@ -9,7 +9,18 @@ class BookInfo(models.Model):
   btitle = models.CharField(max_length=20)
   # 说明是一个日期类型
   bpub_data = models.DateField()
+  def __str__(self):
+    # 返回书名
+    return self.btitle
 
+class HeroInfo(models.Model):
+    """ 英雄人物模型类 """
+    hname = models.CharField(max_length=20)
+    # 性别,default默认指定类型 False代表男
+    hgender = models.BooleanField(default=False)
+    hage = models.IntegerField()
+    hcomment = models.CharField(max_length=128)
+    hbook = models.ForeignKey('BookInfo')
 # 生成迁移文件
 # python manage.py makemigrations
 # 执行迁移文件
