@@ -82,9 +82,10 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME': 'bj18',
         'USER': 'root', # 链接mysql 的用户名
-        'PASSWORD': '123456', # 链接mysql 的密码
-        'HOST': 'localhost',
-        # 'HOST': '172.16.20.46'
+        # 'PASSWORD': '123456', # 链接mysql 的密码
+        'PASSWORD': 'geesunn123', # 链接mysql 的密码
+        # 'HOST': 'localhost',
+        'HOST': '192.168.220.138',
         'PORT': 3306
     }
 }
