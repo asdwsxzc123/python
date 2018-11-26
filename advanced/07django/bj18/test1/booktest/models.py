@@ -21,6 +21,9 @@ class HeroInfo(models.Model):
     hage = models.IntegerField()
     hcomment = models.CharField(max_length=128)
     hbook = models.ForeignKey('BookInfo')
+    def __str__(self):
+      # 返回书名
+      return self.hname
 # 生成迁移文件
 # python manage.py makemigrations
 # 执行迁移文件

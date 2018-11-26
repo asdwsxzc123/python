@@ -51,6 +51,9 @@
 
 """ 后台管理 """
 # 1.语言和时区本地化, settings
+LANGUAGE_CODE = 'zh-hans'
+TIME_ZONE = 'Asia/Shanghai'
+
 # 2.创建管理员
 # python manage.py createuperuser
 
@@ -92,3 +95,39 @@ def index2(request):
 """ 5. 配置模板"""
 # settings.py
 # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
+""" 配置mysql数据库 """
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bj18',
+        'USER': 'root', # 链接mysql 的用户名
+        'PASSWORD': '123456', # 链接mysql 的密码
+        'HOST': 'localhost',
+        'PORT': 3306
+    }
+}
+
+
+""" django查询语句 """
+# get: 只能查询到一条 BooksInfo.objects.get(id=1)
+# all: 返回所有,查询集,BooksInfo.objects.all()
+
+# filter: 筛选,满足数据的 模型属性名__条件吗=值
+    # 1. 判断 exact:  
+    # BooksInfo.objects.get(id__exact=1)
+    # 2. 包含 contains 
+    # BooksInfo.objects.filter(id__contains='传')
+    # 3. startswith(以开头),endswith(以结尾)
+    # 4. 空查询 isnull 
+    # BooksInfo.objects.filter(btitle__isnull=True)
+    # 5. 范围查询 in 
+    # BooksInfo.objects.filter(id_in=[1,3,5])
+    # 6. 比较查询 gt(大于), lt(less than), gte(大于等于), lte(小于等于)
+    # 7.日期查询 year(年), month(月), day(日)
+    # 大于某个日期, from datetime import date
+    # BooksInfo.objects.filter(bpub_date_gt=date(2001))
+     
+# exclude: 不满足数据的
+# order_by('id') 排序
+    

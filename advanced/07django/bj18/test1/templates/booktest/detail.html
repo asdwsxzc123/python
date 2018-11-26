@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{book.btitle}}</h1>
+    英雄信息如下: <br>
+    {% for hero in heros%}
+    <li> {{hero.hname }} -- {{hero.hcomment}}</li>
+    {% empty%}
+        <li>没有英雄信息</li>
+    {% endfor%}
+    <a href="/books">回到列表</a>
+</body>
+</html>
