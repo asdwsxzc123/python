@@ -131,3 +131,45 @@ DATABASES = {
 # exclude: 不满足数据的
 # order_by('id') 排序
     
+# F对象: 用于比较
+    import django.db.models from F
+    BookInfo.objects.filter(bread__gt=F('bcomment') * 2)
+
+
+# Q对象: 用于查询条件之间的逻辑关系not and or
+    # 大于3或阅读大于30
+    BookInfo.objects.filter(Q(id__gt=3)|(bread__gt=30))
+    # id不等于3
+    BookInfo.objects.filter(~Q(id=3))
+
+# 聚合函数
+    # sum,count, avg, max, min
+    # aggregate调用来聚合
+    from django.db.models import Sum,Count,Max,Min,Avg
+    BookInfo.objects.aggregate((Count('id')))
+
+""" 查询集 """
+    1. 惰性查询:只有真正查询的时候才去数据库查询
+    2. 缓存: 只有第一次回去查询,之后使用这个查询集是缓存的结果
+    3. 对查询集切片,会创建新的查询集
+    b[0:1].get()
+    4. exists() 判断查询集是否有数据
+
+
+""" 模型类关系 """
+1.一对多关系
+ models.ForeignKey()定义在多的类中
+2. 多对多关系
+models.ManyToManyField()定义在哪个类中都可以
+3. 一对一关系
+models.OneToOneField() 定义在哪个类中都可以
+
+""" 关联查询 (一对多)"""
+一对多关系,一是一类,多是多类
+# 查询书名为天龙八部的所有英雄
+HeroInfo.objects.filter(hbook__btitle='天龙八部')
+# 查询id为1的英雄关联的图书信息
+HeroInfo.objects.filter(hbook__id=1)
+# 通过模型类实现关联查询时,要查那个表中的数据,就需要通过哪个类来查.
+# 写关联查询条件,如果累中没有关系属性,添加需要对应类的名,如果类中有关系属性,直接写关系属性
+
