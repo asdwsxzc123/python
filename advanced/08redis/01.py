@@ -44,3 +44,5 @@ database 16
 
 主从备份
 slaveof
+
+启动 redis-server /etc/redis/redis.conf
