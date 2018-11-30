@@ -3,6 +3,17 @@ from booktest2.models import BookInfo
 from datetime import date
 from django.http import HttpResponse,HttpResponseRedirect
 
+def set_session(request):
+  # redis keys *
+  request.session['username'] = 'smart'
+  request.session['age'] = 18
+  return HttpResponse('设置session')
+
+def get_session(request):
+  username = request.session('username')
+  age = request.session('age')
+  return HttpResponse(username + ':' + str(age))
+  
 # Create your views here.
 def index(request):
     books = BookInfo.objects.all()

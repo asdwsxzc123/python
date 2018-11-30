@@ -5,4 +5,6 @@ urlpatterns = [
     url(r'^index$', views.index), # 渲染图书
     url(r'^create$', views.create), # 新增图书
     url(r'^delete/(\d+)$', views.delete), # 删除图书
+    url(r'^set_session$', views.set_session),
+    url(r'^get_session$', views.get_session),
 ]
