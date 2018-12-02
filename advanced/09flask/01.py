@@ -16,3 +16,44 @@
 
 # 安装包文件
 # pip install -r requirements.txt
+
+
+
+# flask的上下文
+# 请求上下文
+# 线程局部变量,request可以拿到不同用户的信息
+request = {
+  '线程a': {
+    'form': {
+      'name': 'zhangsan'
+    },
+    'args': {}
+  },
+  '线程a': {
+    'form': {
+      'name': 'zhangsan'
+    },
+    'args':{}
+  }
+}
+
+# 应用上下文
+# current_app: 整个应用程序上下文
+# g变量,临时存储
+
+
+# Flask-Script 拓展命令 
+# pip install Flask-Script
+
+# flask 变量
+
+# url_for
+# request
+# config
+# flash
+
+""" sql """
+# pip install pymysql
+# pymysql.install_as_mysqldb()
+# pip install flask-sqlalchemy
+# pip install flask-mysqldb

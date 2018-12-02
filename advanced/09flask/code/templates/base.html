@@ -1,0 +1,20 @@
+<!-- 自己作为基础 -->
+{% block top %}
+顶部菜单
+{% endblock top %}
+
+{% block content %}
+{% endblock content %}
+
+{% block bottom %}
+{% endblock bottom %}
+
+<!-- 子模板 -->
+{% extends 'base.html' %}
+{% block content %}
+填充的内容
+{% endblock content %}
+
+
+<!-- 吧别人包含过来 -->
+{% include %}

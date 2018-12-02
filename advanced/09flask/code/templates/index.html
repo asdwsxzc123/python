@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>闪现信息</h1>
+  {% for msg in get_flashed_messages()%}
+  <p>{{msg}}</p>
+  {% endfor %}
+  <form method="post">
+    <input type="text" name="city">
+    <input type="text" name="age">
+    <input type="text" name="gender">
+    <input type="submit">
+  </form>
+  <p>{{name}}</p>
+  <p>{{age}}</p>
+  <p>{{' age  world ' | trim | upper}}</p>
+  {%macro input(type="text", name='name', value="22")%}
+  <input type="{{type}}" name="{{name}}" value="{{value}}">
+  {% endmacro%}
+  {{input("", 'username', '2')}}
+  {{input('text', '11', '1')}}
+
+  <hr>
+  {%import 'macro_input.html' as m_input %}
+  {{m_input.input4()}}
+
+</body>
+</html>
