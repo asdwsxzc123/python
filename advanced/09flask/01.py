@@ -43,7 +43,8 @@ request = {
 
 
 # Flask-Script 拓展命令 
-# pip install Flask-Script
+pip install Flask-Script
+pip install flask_wtf
 
 # flask 变量
 
@@ -53,7 +54,11 @@ request = {
 # flash
 
 """ sql """
-# pip install pymysql
-# pymysql.install_as_mysqldb()
-# pip install flask-sqlalchemy
-# pip install flask-mysqldb
+pymysql.install_as_mysqldb()
+pip install pymysql
+pip install flask-sqlalchemy
+pip install flask-mysqldb
+
+
+""" migrate """
+pip install flask-migrate

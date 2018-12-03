@@ -1,15 +1,17 @@
 # coding:utf-8
 from flask import Flask, render_template, request, redirect, url_for,jsonify
+from flask_script import Manager, Shell
+from flask_migrate import Migrate, MigrateCommand
 from flask_wtf import FlaskForm
 from flask_sqlalchemy import SQLAlchemy
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 app = Flask(__name__)
 
-
 class Config(object):
     # 设置连接数据库的URL
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:geesunn123@192.168.220.138:3306/books'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@172.16.20.46:3306/books'
+    # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:geesunn123@192.168.220.138:3306/books'
     # 设置每次请求结束后会自动提交数据库中的改动
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     # 自动更新数据库
@@ -23,14 +25,22 @@ class Config(object):
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 
+# 创建flask脚本对象
+manager = Manager(app)
+
+# 创建数据库迁移工具
+Migrate(app, db)
+
+# 向manager对象添加数据库操作指令
+manager.add_command('db', MigrateCommand)
 
 class Author(db.Model):
     """ 作者 """
     __tablename__ = 'tbl_authors'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True)
+    email = db.Column(db.String(64))
     books = db.relationship('Book', backref='author')
-
 
 class Book(db.Model):
     """ 书籍 """
@@ -115,4 +125,18 @@ if __name__ == "__main__":
     # db.session.add_all([bk_xi,bk_xi2,bk_qian,bk_san])
     # #提交会话
     # db.session.commit()
-    app.run(host="0.0.0.0", port=7788, debug=True)
+    # app.run(host="0.0.0.0", port=7788, debug=True)
+    
+    manager.run()
+    # python 10book_tmp.py db init
+    # 迁移
+    # python 10book_tmp.py db migrate == makemigration
+    # 更新数据库
+    # python 10book_tmp.py db upgrade == migrate
+    # 创建自动迁移脚本
+    # python 10book_tmp.py db migrate -m 'init'
+    # 查看版本
+    # python 10book_tmp.py db history
+    # 回滚
+    # python 10book_tmp.py db downgrade b1d25a7c7fd6
+
