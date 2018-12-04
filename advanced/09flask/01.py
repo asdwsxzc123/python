@@ -63,6 +63,9 @@ pip install flask-mysqldb
 """ migrate """
 pip install flask-migrate
 
+""" session """
+pip install flask-session
+
 
 """ 部署 """
 # nginx: 负载均衡,提供静态文件
@@ -72,3 +75,7 @@ pip install flask-migrate
 # 在code1文件夹中的main.py 
 # gunicorn -w 4 -b 127.0.0.1:7788 --access-logfile ./logs/log main:app;
 
+
+# 前后端分离:
+# 后端只用写一套代码,前端多款产品公用同一套代码,减轻了后端压力
+# 不利于SEO的搜索
