@@ -22,3 +22,7 @@ def index():
 if __name__ == '__main__':
     print(app.url_map)
     app.run(host='0.0.0.0', port=7788, debug=True)
+
+# gunicorn -w 4 -b 172.16.20.46:7788 --access-logfile ./logs/log main:app;
+# gunicorn -w 4 -b 172.16.20.46:5000 --access-logfile ./logs/log main:app;
+# gunicorn -w 4 -b 172.16.20.46:5001 --access-logfile ./logs/log1 main:app;

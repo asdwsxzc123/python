@@ -62,3 +62,13 @@ pip install flask-mysqldb
 
 """ migrate """
 pip install flask-migrate
+
+
+""" 部署 """
+# nginx: 负载均衡,提供静态文件
+# Gunicorn + flask: 业务服务器
+# nginx Gunicorn + flask
+
+# 在code1文件夹中的main.py 
+# gunicorn -w 4 -b 127.0.0.1:7788 --access-logfile ./logs/log main:app;
+
