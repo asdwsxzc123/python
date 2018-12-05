@@ -17,11 +17,12 @@ class Config(object):
     # redis
     REDIS_HOST = '172.16.20.46'
     REDIS_PORT = 6379
+    REDIS_PWD = 123456
 
     # session
     
     SESSION_TYPE = 'redis'
-    SESSION_REDIS = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT) 
+    SESSION_REDIS = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT,password=REDIS_PWD) 
     SESSION_USE_SIGNER = True
     PERMANENT_SESSION_LIFETIME = 86400 # session数据的有效期, 单位s
 

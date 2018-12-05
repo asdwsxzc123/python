@@ -13,5 +13,6 @@ def index():
    return '111'
 if __name__ == "__main__":
     # app.run(host='0.0.0.0',port=7788)
+    # print(app.url_map)
     manager.run()
-# python manage.py runserver - h '0.0.0.0' - p 7788
+# python manage.py runserver -h '0.0.0.0' -p 7788
