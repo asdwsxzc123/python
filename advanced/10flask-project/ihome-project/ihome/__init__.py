@@ -53,7 +53,12 @@ def create_app(conf_name):
     CSRFProtect(app)
 
     # 注册蓝图
-    from ihome import api_1_0
+    from . import api_1_0
     app.register_blueprint(api_1_0.api, url_prefix='/api/v1.0')
     
+    # 提供静态文件蓝图
+    from . import web_html
+    app.register_blueprint(web_html.html)
+
+
     return app
