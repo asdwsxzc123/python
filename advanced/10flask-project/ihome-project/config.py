@@ -7,6 +7,7 @@ class Config(object):
     
     # 数据库
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@172.16.20.46:3306/ihome'
+    # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@172.16.20.46:3306/ihome'
     # 设置每次请求结束后会自动提交数据库中的改动
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     # 自动更新数据库
