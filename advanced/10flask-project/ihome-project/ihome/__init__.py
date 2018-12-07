@@ -7,6 +7,7 @@ from flask_wtf import CSRFProtect
 import redis
 import logging
 from logging.handlers import RotatingFileHandler
+from ihome.utils.commons import ReConverter
 # 数据库
 db = SQLAlchemy()
 
@@ -52,11 +53,14 @@ def create_app(conf_name):
     # 为flask补充csrf防护,中间件,对post请求过滤,
     CSRFProtect(app)
 
+    # 为flask添加自定义的转换器
+    app.url_map.converters['re'] =  ReConverter
+
     # 注册蓝图
     from . import api_1_0
     app.register_blueprint(api_1_0.api, url_prefix='/api/v1.0')
     
-    # 提供静态文件蓝图
+    # # 提供静态文件蓝图
     from . import web_html
     app.register_blueprint(web_html.html)
 
