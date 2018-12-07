@@ -6,8 +6,8 @@ class Config(object):
     SECRET_KEY = 'DSFDS'
     
     # 数据库
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@172.16.20.46:3306/ihome'
-    # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:geesunn123@192.168.220.140:3306/ihome'
+    # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@172.16.20.46:3306/ihome'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:geesunn123@192.168.220.140:3306/ihome'
     # 设置每次请求结束后会自动提交数据库中的改动
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     # 自动更新数据库
@@ -16,8 +16,8 @@ class Config(object):
     SQLALCHEMY_ECHO = True
 
     # redis
-    # REDIS_HOST = '192.168.220.140'
-    REDIS_HOST = '172.16.20.46'
+    REDIS_HOST = '192.168.220.140'
+    # REDIS_HOST = '172.16.20.46'
     REDIS_PORT = 6379
     REDIS_PWD = 123456
 
