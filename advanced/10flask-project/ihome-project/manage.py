@@ -9,9 +9,6 @@ app = create_app('dev')
 manager = Manager(app)
 Migrate(app, db)
 manager.add_command('db', MigrateCommand)
-@app.route('/index')
-def index():
-   return '111'
 if __name__ == "__main__":
     # app.run(host='0.0.0.0',port=7788)
     # print(app.url_map)

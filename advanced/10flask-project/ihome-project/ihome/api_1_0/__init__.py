@@ -15,4 +15,4 @@ def index():
     return 'hi'
 
 # 导入蓝图的视图函数
-from . import demo
+from . import demo,verify_code

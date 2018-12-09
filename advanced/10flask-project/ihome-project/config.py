@@ -4,7 +4,7 @@ import redis
 class Config(object):
     """ 配置信息 """
     SECRET_KEY = 'DSFDS'
-    
+
     # 数据库
     # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@172.16.20.46:3306/ihome'
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:geesunn123@192.168.220.140:3306/ihome'
