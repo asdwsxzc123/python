@@ -1,7 +1,7 @@
 # coding:utf-8
 
 from . import api
-from flask_captcha import Captcha
+from ihome.utils.captcha.captcha import veri_code
 from ihome import redis_store
 from ihome import constants
 from flask import current_app, jsonify, make_response
@@ -23,7 +23,6 @@ def get_image_code(image_code_id):
     # 业务逻辑处理
     # 生成验证码图片
     # 名字, 真实文本, 图片数据
-    text, image = Captcha.gene_graph_captcha()
     # 将验证码真实值和编号保存到redis中,并设置有效期
     # redis 数据类型 字符串 列表 哈希 set
     # key: xxx
@@ -34,17 +33,20 @@ def get_image_code(image_code_id):
     # redis_store.set('image_code_%s' % image_code_id, text)
     # redis_store.expire('image_code_%s' % image_code_id,
     #                    constants.IMAGE_CODE_REDIS_EXPIRES)
+    # out = BytesIO()
+    # image.save(out, "png")
+    # out.seek(0)
+    text, image = veri_code()
     print("图形验证码是：", text.lower())
-    out = BytesIO()
-    image.save(out, "png")
-    out.seek(0)
+    print(text)
     try:
+
         redis_store.setex('image_code_%s' % image_code_id,
                       constants.IMAGE_CODE_REDIS_EXPIRES, text)
     except Exception as e:
         current_app.logger.error(e)
         return jsonify(errno=RET.DBERR, errmsg='save image code failed')
     # 返回图片
-    resp = make_response(out.read())
+    resp = make_response(text)
     resp.headers['Content-Type'] = 'image/jpg'
     return resp
