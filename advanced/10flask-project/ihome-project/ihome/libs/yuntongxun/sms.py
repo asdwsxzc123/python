@@ -1,0 +1,58 @@
+# coding=utf-8
+
+from CCPRestSDK import REST
+import ConfigParser
+
+#???
+accountSid= '11'
+
+#???Token
+accountToken= '?????Token'
+
+#??Id
+appId='????ID'
+
+#??????????????http://
+serverIP='app.cloopen.com'
+
+#???? 
+serverPort='8883'
+
+#REST???
+softVersion='2013-12-26'
+
+# ??????
+# @param to ????
+# @param datas ???? ????? ???{'12','34'}???????? ''
+# @param $tempId ??Id
+
+class CCP(object):
+  """ ????????????? """
+  # ??????????
+  instance = None
+  def __new__(cls):
+    # ?? ccp????????????,?????,????
+    #???REST SDK
+    if cls.instance is None:
+      obj = super(CCP, cls).__new__(cls)
+      obj.rest = REST(serverIP,serverPort,softVersion)
+      obj.rest.setAccount(accountSid,accountToken)
+      obj.rest.setAppId(appId)
+      cls.instance = obj
+    return cls.instance
+    
+  def send_template_sms(self, to ,datas, tempId):
+    result = self.rest.sendTemplateSMS(to,datas,tempId)
+    # for k,v in result.iteritems(): 
+        
+    #     if k=='templateSMS' :
+    #       for k,s in v.iteritems(): 
+    #         print( '%s:%s' % (k, s))
+    #     else:
+          # print('%s:%s' % (k, v))
+    status_code = result.get('statusCode')
+
+#sendTemplateSMS(????,????,??Id)
+if __name__ == "__main__":
+    ccp = CCP()
+    ccp.send_template_sms('1811111111', ['1234','5'], 1)

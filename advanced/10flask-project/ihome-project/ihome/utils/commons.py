@@ -10,3 +10,5 @@ class ReConverter(BaseConverter):
         super(ReConverter,self).__init__(url_map)
         # 保存正则表达式
         self.regex = regex
+
+        
