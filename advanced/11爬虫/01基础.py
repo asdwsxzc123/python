@@ -40,6 +40,11 @@ b.decode('gbk')
 url=>发送请求,获取响应=>提取数据=>保存
 发送请求,获取响应=>提取url
 
+# 爬虫要根据当前url地址对应的响应为准,当前url地址的elements和内容和url的响应不一样
+#  爬虫的数据
+# 当前的数据在 url地址对应的响应中
+# js生成的数据
+
 """ url """
 # 形式 scheme://host[:port]/path/.../[?query-string][#anchor]
 scheme:协议 (例如: http,https,ftp)
