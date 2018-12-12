@@ -36,3 +36,11 @@ with open('./index.html', 'wb') as f :
 
 
 """ post """
+# 文本类型
+response.text
+# byte类型
+response.content
+response.content.decode()
+response.content.decode('gbk')
+
+
