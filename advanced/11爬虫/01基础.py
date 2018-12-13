@@ -77,3 +77,7 @@ anchor: 锚(调转到网页的指定锚点位置)
 """ robots协议 """
 # 是道德层面的约束
 # www.taobao.com/robots.txt
+
+""" 安装源码 """
+# 压缩文件,有个setup.py
+# python setup.py install

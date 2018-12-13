@@ -1,4 +1,6 @@
 
+import requests
+
 # session和cookie
 # 如果需要获取登录后的页面,需要带上cookies
 # cookie池
@@ -15,10 +17,23 @@
 # 在cookie过期之前能够拿到所有的数据
 # 配合其他程序一起使用,其他程序专门获取cookie,当前程序专门请求页面
 
-import requests
+""" 转化成字典 """
+# requests.util.dict_from_cookiejar
+# requests.util.cookiejar_from_dict
+
+""" url的解码 """
+# requests.util.unquote()
+# requests.util.quote()
+
+""" ssl证书验证 """
+# response = requests.get(url,verify=Flase)
+
+""" 设置超时 """
+# response = requests.get(url,timeout=10)
+
+
+
 session = requests.session()
-dtime = datetime.datetime.now()
-ans_time = time.mktime(dtime.timetuple())
 url = 'http://www.renren.com/PLogin.do'
 data = {
     'email': '1111@126.com',
