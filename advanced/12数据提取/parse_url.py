@@ -13,7 +13,7 @@ def _parse_url(url,method,data,proxies):
     return response.content.decode()
 
 
-def parse_url(url, method='GET', data=None, proxies={'http': '223.82.247.121:80'}):
+def parse_url(url, method='GET', data=None, proxies={'http': '123.120.161.219:8060'}):
     try:
         html_str = _parse_url(url,method,data,proxies)
     except:
