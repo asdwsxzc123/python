@@ -81,3 +81,30 @@ anchor: 锚(调转到网页的指定锚点位置)
 """ 安装源码 """
 # 压缩文件,有个setup.py
 # python setup.py install
+
+""" 爬虫代码建议 """
+# 1. 尽量减少请求次数
+#     能抓列表不抓详情,
+#     保存获取到的html页面,供查错和重复请求使用
+# 2. 关注网站的所有类型的页面
+#     wap页面
+#     h5页面
+#     APP
+# 3. 多伪装
+#     动态UA
+#     代理ip
+#     不使用cookie
+# 4.利用多线程分布式
+#     在不被ban的请求下尽肯的提高速度
+
+""" selenium 和 phantomjs """
+# selenium
+# 自动化 webdriver
+
+# phantomjs
+# 无界面的webkit内核
+# chromedriver 和 phantomjs 在淘宝镜像下载
+
+""" tesseract """
+# python install pytesseract
+# 将图像翻译成文字的OCR库(光学文字识别)
