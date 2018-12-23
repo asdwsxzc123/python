@@ -22,3 +22,15 @@ class SunItem(scrapy.Item):
     status = scrapy.Field()
     create_user = scrapy.Field()
     create_time = scrapy.Field()
+    content = scrapy.Field()
+    content_img = scrapy.Field()
+
+
+class BookItem(scrapy.Item):
+    b_cate = scrapy.Field()
+    b_href = scrapy.Field()
+    s_cate = scrapy.Field()
+    s_href = scrapy.Field()
+    book_title = scrapy.Field()
+    book_price = scrapy.Field()
+    book_img = scrapy.Field()

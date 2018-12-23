@@ -15,7 +15,7 @@ SPIDER_MODULES = ['myspider.spiders']
 NEWSPIDER_MODULE = 'myspider.spiders'
 
 LOG_LEVEL = 'WARNING'
-LOG_FILE = './log/log.log'
+LOG_FILE = './log.log'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
 
@@ -67,12 +67,14 @@ ROBOTSTXT_OBEY = True
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 # 管道位置,越小越近,先处理
 ITEM_PIPELINES = {
-   'myspider.pipelines.MyspiderPipeline': 300,
-   'myspider.pipelines.MyspiderPipeline1': 301,
-   'myspider.pipelines.TennetPipeline': 299,
-   'myspider.pipelines.SunPipeline': 298,
+   # 'myspider.pipelines.MyspiderPipeline': 300,
+   # 'myspider.pipelines.MyspiderPipeline1': 301,
+   # 'myspider.pipelines.TennetPipeline': 299,
+   # 'myspider.pipelines.SunPipeline': 298,
+   'myspider.pipelines.BookPipeline': 298,
 }
 
+# 自动限速
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
