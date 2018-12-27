@@ -35,3 +35,7 @@ class BookItem(scrapy.Item):
     book_price = scrapy.Field()
     book_img = scrapy.Field()
     book_info_href = scrapy.Field()
+    book_author = scrapy.Field()
+    book_press = scrapy.Field()
+    book_desc = scrapy.Field()
+    publish_time = scrapy.Field()

@@ -15,6 +15,8 @@ spider middlewarespider(中间件): 可以自定义requests请求和进行respon
 scrapy startproject 项目名
 # 生成一个爬虫
 scrapy genspider itcast 'itcast.cn'
+""" crawlspider """
+# scrapy genspider -t crawl itcast 'itcast.cn'
 # 提取数据
 晚上spider,提供xpath等方法
 # 保存数据
