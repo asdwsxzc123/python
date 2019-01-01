@@ -15,6 +15,7 @@ spider middlewarespider(中间件): 可以自定义requests请求和进行respon
 scrapy startproject 项目名
 # 生成一个爬虫
 scrapy genspider itcast 'itcast.cn'
+
 """ crawlspider """
 # scrapy genspider -t crawl itcast 'itcast.cn'
 # 提取数据
@@ -34,3 +35,14 @@ LOG_FILE = './log.log'
 callback : 指定传入的url交给那个解析函数去分析
 meta: 实现不同的解析函数中传递数据,meta默认会携带部分信息,比如下载延迟,请求深度
 dont_filter: 让scrapy的去重不会过滤当前url,scrapy默认有url去重的功能,对需要重复请求的url有重要用途
+
+LinkExtractor
+allow 正则
+deny: 满足括号中正则表达式多URL一定不会提取（优先级高于allow）
+allow_demains: 
+callback 
+注意：
+ URL地址不完整，crawlspider会自动补充完整之后在请求
+ parse函数不能定义，他有特殊多功能需要实现
+ callback: 链接提取出来的URL地址需要对应的响应
+ follow： 连接提取器取出来的URL地址对应的响应是否继续被rules来过滤

@@ -71,7 +71,7 @@ class MyspiderDownloaderMiddleware(object):
     def process_request(self, request, spider):
         # Called for each request that goes through the downloader
         # middleware.
-        request.meta["proxy"] = 'http://180.118.73.226:9000'
+        request.meta["proxy"] = 'http://180.108.174.160:9999'
         # Must either:
         # - return None: continue processing this request
         # - or return a Response object
