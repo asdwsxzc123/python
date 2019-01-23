@@ -46,3 +46,8 @@ callback
  parse函数不能定义，他有特殊多功能需要实现
  callback: 链接提取出来的URL地址需要对应的响应
  follow： 连接提取器取出来的URL地址对应的响应是否继续被rules来过滤
+
+
+""" 下载中间件 """
+# 默认方法
+process_request
