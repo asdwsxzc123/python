@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
+
 class Node(object):
-    """ 节点 """
-    def __init__(self,elem):
-        self.elem = elem
+    def __init__(self, item):
+        self.elem = item
         self.next = None
-
-
-# node = Node(100)
-class SingleLinkList(object):
-    """ 单链表 """
+        self.prev = None
+    
+class DoubuleLikList(object):
+    """ 双链表 """
     def __init__(self):
         self._head = None
     def is_empty(self):
@@ -35,6 +34,7 @@ class SingleLinkList(object):
         node = Node(item)
         node.next = self._head
         self._head = node
+        node.next.prev = node
     def append(self, item):
         """ 链表尾部添加 """
         node = Node(item)
@@ -45,6 +45,7 @@ class SingleLinkList(object):
             while cur.next != None:
                 cur = cur.next
             cur.next = node
+            node.prev = cur
     def insert(self, pos, item):
         """ 指定位置添加 
         : pos 从0开始
@@ -53,14 +54,18 @@ class SingleLinkList(object):
             self.add(item)
         elif pos > (self.length() - 1):
             self.append(item)
-        count = 0
-        pre = self._head
-        while count < (pos - 1):
-            count +=1
-            pre = pre.next
-        node = Node(item)
-        node.next = pre.next
-        pre.next = node
+        else:
+            cur = self._head
+            count = 0
+            while count < (pos - 1):
+                count +=1
+                cur = cur.next
+            node = Node(item)
+            node.next = cur.next
+            node.prev = cur.prev
+            cur.prev.next = node
+            cur.prev = node 
+        
     def remove(self, item):
         """ 删除节点 """
         cur = self._head
@@ -72,11 +77,15 @@ class SingleLinkList(object):
                 # 先判断头结点
                 if cur == self._head:
                     self._head = cur.next
+                    if cur.next:
+                        # 判断链表是否只有一个节点
+                        cur.next.prev = None
                 else:
-                    pre.next = cur.next
+                    cur.pre.next = cur.next
+                    if cur.next:
+                        cur.next.prev = cur.prev
                 break
             else:
-                pre = cur
                 cur = cur.next
     def search(self, item):
         """ 查找节点是否存在 """
@@ -89,14 +98,6 @@ class SingleLinkList(object):
             else:
                 cur = cur.next
         return False
+
 if __name__ == "__main__":
-    ll = SingleLinkList()
-    ll.append(1)
-    ll.append(2)
-    # print(ll.is_empty())
-    # print(ll.length())
-    ll.append(3)
-    ll.add(8)
-    ll.insert(2,4)
-    ll.remove(4)
-    ll.travel()
+    dl = DoubuleLikList()
